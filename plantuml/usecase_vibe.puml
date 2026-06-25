@@ -1,0 +1,108 @@
+@startuml usecase_vibe
+' Диаграмма вариантов использования — +Vibe
+' Рендер: https://www.plantuml.com/plantuml/uml/ или VS Code + PlantUML
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam defaultFontName "Times New Roman"
+skinparam defaultFontSize 11
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+}
+skinparam rectangle {
+  BackgroundColor white
+  BorderColor black
+}
+
+left to right direction
+
+actor "Гость" as Guest
+actor "Посетитель" as Visitor
+actor "Организатор" as Organizer
+actor "Администратор" as Admin
+actor "Контролёр\nна входе" as Controller
+
+Visitor -up-|> Guest : <<обобщение>>
+
+rectangle "Веб-платформа продажи билетов +Vibe" as System {
+
+  ' --- Гость / общие ---
+  usecase "Просмотр каталога\nмероприятий" as UC_Catalog
+  usecase "Просмотр карточки\nмероприятия" as UC_Card
+  usecase "Регистрация" as UC_Register
+  usecase "Авторизация" as UC_Auth
+  usecase "Просмотр FAQ" as UC_Faq
+  usecase "Обращение\nв поддержку" as UC_Support
+
+  ' --- Посетитель ---
+  usecase "Выбор мест\nна схеме зала" as UC_Seats
+  usecase "Покупка билета" as UC_Buy
+  usecase "Просмотр личного\nкабинета" as UC_Profile
+  usecase "Просмотр билетов\nи QR-кода" as UC_Tickets
+  usecase "Изменение профиля\nи пароля" as UC_EditProfile
+  usecase "Настройка\nуведомлений" as UC_Notify
+
+  ' --- Организатор ---
+  usecase "Создание\nмероприятия" as UC_Create
+  usecase "Редактирование\nмероприятия" as UC_EditEvent
+  usecase "Отправка\nна модерацию" as UC_Submit
+  usecase "Управление\nпубликацией" as UC_Publish
+  usecase "Просмотр продаж" as UC_Sales
+
+  ' --- Администратор ---
+  usecase "Модерация\nмероприятий" as UC_Moderate
+  usecase "Управление\nпользователями" as UC_Users
+  usecase "Управление площадками\nи залами" as UC_Venues
+  usecase "Управление фильтрами\nкаталога" as UC_Filters
+  usecase "Просмотр статистики" as UC_Stats
+  usecase "Обработка\nобращений" as UC_Contacts
+
+  ' --- Контролёр ---
+  usecase "Проверка\nQR-билета" as UC_Verify
+
+  UC_Buy ..> UC_Auth : <<включить>>
+  UC_Buy ..> UC_Seats : <<включить>>
+}
+
+' Гость
+Guest --> UC_Catalog
+Guest --> UC_Card
+Guest --> UC_Register
+Guest --> UC_Auth
+Guest --> UC_Faq
+Guest --> UC_Support
+
+' Посетитель
+Visitor --> UC_Catalog
+Visitor --> UC_Card
+Visitor --> UC_Seats
+Visitor --> UC_Buy
+Visitor --> UC_Profile
+Visitor --> UC_Tickets
+Visitor --> UC_EditProfile
+Visitor --> UC_Notify
+Visitor --> UC_Support
+
+' Организатор
+Organizer --> UC_Create
+Organizer --> UC_EditEvent
+Organizer --> UC_Submit
+Organizer --> UC_Publish
+Organizer --> UC_Sales
+Organizer --> UC_Auth
+
+' Администратор
+Admin --> UC_Moderate
+Admin --> UC_Users
+Admin --> UC_Venues
+Admin --> UC_Filters
+Admin --> UC_Stats
+Admin --> UC_Contacts
+
+' Контролёр
+Controller --> UC_Verify
+
+@enduml

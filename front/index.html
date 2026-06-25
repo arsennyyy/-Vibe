@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+  <head>
+    <script>
+      document.documentElement.classList.remove("light");
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("vibe_theme", "dark");
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>+Vibe - Покупка билетов на концерты и фестивали</title>
+    <meta name="description" content="Платформа для продажи билетов на концерты, фестивали с выбором мест через схему зала" />
+    <meta name="author" content="+Vibe" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/custom.css" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

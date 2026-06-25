@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>+Vibe — сценарий защиты (7 мин)</title>
+  <style>
+    :root {
+      --bg: #0c0c10;
+      --surface: #14141c;
+      --border: #2a2a3a;
+      --text: #e8e8ef;
+      --muted: #9ca3af;
+      --accent: #a78bfa;
+      --accent-dim: #7c3aed;
+      --say: #f0fdf4;
+      --say-border: #22c55e;
+      --action: #fef9c3;
+      --action-border: #eab308;
+      --url: #67e8f9;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+    }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0 0 8px;
+      background: linear-gradient(135deg, #c4b5fd, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .subtitle { color: var(--muted); margin-bottom: 32px; font-size: 0.95rem; }
+    .prep {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+    }
+    .prep h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin: 0 0 12px; }
+    .prep ul { margin: 0; padding-left: 1.2rem; color: var(--muted); }
+    .prep li { margin-bottom: 6px; }
+  .prep code, .url { color: var(--url); font-family: Consolas, monospace; font-size: 0.9em; }
+    .block {
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .block:last-child { border-bottom: none; }
+    .step-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .step-num {
+      background: var(--accent-dim);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .step-title { font-size: 1.1rem; font-weight: 600; color: var(--accent); }
+    .timing { color: var(--muted); font-size: 0.85rem; margin-left: auto; }
+    .say {
+      background: rgba(34, 197, 94, 0.08);
+      border-left: 4px solid var(--say-border);
+      padding: 14px 18px;
+      margin: 12px 0;
+      border-radius: 0 10px 10px 0;
+      color: var(--say);
+    }
+    .say p { margin: 0 0 10px; }
+    .say p:last-child { margin-bottom: 0; }
+    .action {
+      background: rgba(234, 179, 8, 0.08);
+      border-left: 4px solid var(--action-border);
+      padding: 12px 16px;
+      margin: 10px 0;
+      border-radius: 0 8px 8px 0;
+      color: var(--action);
+      font-size: 0.92rem;
+    }
+    .action strong { color: #fde047; }
+    .hint { color: var(--muted); font-size: 0.88rem; margin-top: 8px; font-style: italic; }
+    @media print {
+      body { background: #fff; color: #111; }
+      .say { background: #f0fdf4; color: #14532d; border-color: #22c55e; }
+      .action { background: #fefce8; color: #713f12; border-color: #ca8a04; }
+      .prep { background: #f8fafc; border-color: #e2e8f0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>+Vibe — сценарий защиты</h1>
+    <p class="subtitle">Говори текст из зелёных блоков. Жёлтые — что открыть / куда кликнуть. ~7 минут.</p>
+
+    <div class="prep">
+      <h2>Перед защитой (за 10 минут)</h2>
+      <ul>
+        <li>Запусти бэкенд: <code>cd backend → dotnet run</code> (порт <span class="url">5064</span>)</li>
+        <li>Запусти фронт: <code>cd front → npm run dev</code> (порт <span class="url">5173</span>)</li>
+        <li>Ollama: <code>ollama pull llama3.2</code> — для чата поддержки</li>
+        <li>Открой вкладки заранее (Ctrl+1…8): <span class="url">/</span> · <span class="url">/concerts</span> · <span class="url">/event/1</span> · <span class="url">/signup</span> · <span class="url">/profile</span> · организатор · <span class="url">/admin</span> · <span class="url">/verify</span></li>
+        <li>На <span class="url">/signup</span> можно заранее заполнить поля (не отправлять)</li>
+        <li>Залогинься как админ: <span class="url">bykovarsenij8@gmail.com</span></li>
+      </ul>
+    </div>
+
+    <!-- БЛОК 0 -->
+    <div class="block">
+      <div class="step-head">
+        <span class="step-num">00</span>
+        <span class="step-title">Начало — без экрана или на титульном слайде</span>
+        <span class="timing">0:00 – 0:40</span>
+      </div>
+      <div class="say">
+        <p>Уважаемый председатель и члены государственной экзаменационной комиссии!</p>
+        <p>Мой дипломный проект — веб-платформа <strong>+Vibe</strong> для продажи билетов и управления мероприятиями.</p>
+        <p>Актуальность темы в том, что организаторы и зрители до сих пор вынуждены пользоваться разрозненными каналами: афиша, касса, почта, возврат по телефону. Я разработал единую систему, которая закрывает весь цикл — от публикации концерта до проверки QR-билета на входе.</p>
+        <p>Цель — автоматизировать продажу билетов для концертных площадок. Задачи: спроектировать базу данных, реализовать интерактивную схему зала, безопасную авторизацию, панели организатора и администратора, тестирование и экономическое обоснование.</p>
+        <p>Стек: React и TypeScript на клиенте, ASP.NET Core 8 и PostgreSQL на сервере. Сейчас продемонстрирую работу системы вживую.</p>
+      </div>
+    </div>
+
+    <!-- БЛОК 1 -->
+    <div class="block">
+      <div class="step-head">
+        <span class="step-num">01</span>
+        <span class="step-title">Главная страница</span>
+        <span class="timing">0:40 – 1:30</span>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Переключись на вкладку <span class="url">http://localhost:5173/</span>. Покажи тёмную тему (переключатель в шапке, если светлая).
+      </div>
+      <div class="say">
+        <p>Перед вами главная страница платформы +Vibe. Интерфейс адаптивный, поддерживается тёмная и светлая тема.</p>
+        <p>В hero-секции — поиск по артистам из реального каталога: начну вводить имя, система предлагает исполнителей из опубликованных событий.</p>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Введи в поиск 2–3 буквы имени артиста из каталога → кликни подсказку или Enter.
+      </div>
+      <div class="say">
+        <p>Поиск ведёт сразу в каталог — пользователь без регистрации может найти интересующий концерт. Ниже — блок рекомендаций и переход ко всем мероприятиям.</p>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Кликни «Все мероприятия» или «Концерты» в меню.
+      </div>
+    </div>
+
+    <!-- БЛОК 2 -->
+    <div class="block">
+      <div class="step-head">
+        <span class="step-num">02</span>
+        <span class="step-title">Каталог концертов</span>
+        <span class="timing">1:30 – 2:20</span>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Вкладка <span class="url">/concerts</span>. Прокрути чуть вниз — покажи сетку карточек.
+      </div>
+      <div class="say">
+        <p>Это каталог концертов. Сверху — блок «Главное» с ключевым событием, ниже — полный список.</p>
+        <p>Работают фильтры по жанру и дате, сортировка. Фильтры и жанры администратор настраивает в панели — они хранятся в базе, а не захардкожены в коде.</p>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Выбери жанр в фильтре (например «Рок») → покажи, как список меняется. Сбрось фильтр.
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Кликни по карточке любого концерта.
+      </div>
+    </div>
+
+    <!-- БЛОК 3 -->
+    <div class="block">
+      <div class="step-head">
+        <span class="step-num">03</span>
+        <span class="step-title">Страница мероприятия и схема зала</span>
+        <span class="timing">2:20 – 3:30</span>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Вкладка <span class="url">/event/…</span>. Медленно прокрути hero с обложкой.
+      </div>
+      <div class="say">
+        <p>Страница мероприятия: полноэкранная обложка, дата, площадка, состав артистов. Есть вкладки — описание, схема зала, отзывы. На карте — место проведения.</p>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Перейди на вкладку <strong>«Схема зала»</strong>. Покажи зум колёсиком мыши (панорамирование перетаскиванием).
+      </div>
+      <div class="say">
+        <p>Ключевая часть проекта — интерактивная схема зала на Canvas. Это не картинка: каждое место — объект в базе с координатами, сектором и ценой. В каталоге залов заложены схемы реальных минских площадок — от клуба до арены на тысячи мест.</p>
+        <p>Цветом отмечены свободные, занятые и выбранные места; есть VIP и места для маломобильных граждан.</p>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Кликни 2–3 свободных места → справа появится сумма. Не оформляй покупку, если не залогинен — скажи про регистрацию.
+      </div>
+      <div class="say">
+        <p>Выбранные места резервируются на сервере — два пользователя не смогут купить одно и то же место. Сумма пересчитывается мгновенно. Для покупки нужна регистрация — перейду к сценарию посетителя.</p>
+      </div>
+    </div>
+
+    <!-- БЛОК 4 -->
+    <div class="block">
+      <div class="step-head">
+        <span class="step-num">04</span>
+        <span class="step-title">Регистрация и профиль</span>
+        <span class="timing">3:30 – 4:30</span>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Вкладка <span class="url">/signup</span> или уже открытый <span class="url">/profile</span> (если залогинен).
+      </div>
+      <div class="say">
+        <p>Регистрация с двухфакторным подтверждением: пользователь вводит e-mail, получает одноразовый код — OTP. Так мы гарантируем, что канал для билетов и возвратов достоверный. Альтернатива — вход через Google.</p>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Если показываешь профиль: вкладка <span class="url">/profile</span> → раздел <strong>«Мои билеты»</strong>.
+      </div>
+      <div class="say">
+        <p>В личном кабинете — аватар, настройки уведомлений, купленные билеты. У каждого билета — динамический QR-код: он обновляется по таймеру, чтобы усложнить перепродажу скриншотом. Билет можно скачать в PDF и отправить на почту.</p>
+        <p>Реализованы возврат билета и передача другому пользователю — с отдельным сценарием оплаты номинала.</p>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Открой один билет / QR. Покажи кнопку скачивания PDF (если есть билет).
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> В правом нижнем углу открой <strong>виджет чата поддержки</strong> → задай вопрос: «Как вернуть билет?»
+      </div>
+      <div class="say">
+        <p>Чат поддержки работает на локальной языковой модели через Ollama — ответы по правилам платформы; при необходимости диалог эскалируется администратору.</p>
+      </div>
+    </div>
+
+    <!-- БЛОК 5 -->
+    <div class="block">
+      <div class="step-head">
+        <span class="step-num">05</span>
+        <span class="step-title">Организатор</span>
+        <span class="timing">4:30 – 5:20</span>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Вкладка конструктора <span class="url">/organizer/events/…/edit</span>.
+      </div>
+      <div class="say">
+        <p>Роль организатора. В конструкторе создаётся событие: название, жанр, дата, площадка из справочника, обложка с кадрированием под формат баннера, состав артистов, привязка схемы зала и цен по секторам.</p>
+        <p>После заполнения организатор отправляет событие на модерацию. Пока администратор не одобрит — в публичном каталоге его нет. Это защита от некачественного контента.</p>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Покажи поля формы, превью обложки, выбор площадки / схемы зала. Не обязательно сохранять.
+      </div>
+    </div>
+
+    <!-- БЛОК 6 -->
+    <div class="block">
+      <div class="step-head">
+        <span class="step-num">06</span>
+        <span class="step-title">Администратор</span>
+        <span class="timing">5:20 – 6:10</span>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Вкладка <span class="url">/admin</span> (если вылетел — <span class="url">/admin-signin</span>).
+      </div>
+      <div class="say">
+        <p>Панель администратора. На дашборде — статистика: выручка, комиссия платформы двенадцать процентов, заказы, пользователи. Каждый платёж в базе расщеплён на gross, комиссию и выплату организатору.</p>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Открой вкладку <strong>«Модерация»</strong> / список событий на проверке (если есть). Или вкладку пользователей / FAQ.
+      </div>
+      <div class="say">
+        <p>Администратор модерирует события, назначает организаторов, редактирует FAQ и фильтры каталога, обрабатывает возвраты, отмены, переносы дат и обращения из чата поддержки.</p>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Переключись на <span class="url">/verify</span>.
+      </div>
+      <div class="say">
+        <p>Страница верификации имитирует контроль на входе: сканирование QR билета, проверка статуса — использован, возвращён или действителен.</p>
+      </div>
+    </div>
+
+    <!-- БЛОК 7 -->
+    <div class="block">
+      <div class="step-head">
+        <span class="step-num">07</span>
+        <span class="step-title">Заключение</span>
+        <span class="timing">6:10 – 7:00</span>
+      </div>
+      <div class="action">
+        <strong>Действие:</strong> Можно вернуться на главную или оставить админку. Смотри на комиссию, не в монитор.
+      </div>
+      <div class="say">
+        <p>Подводя итог: разработана полнофункциональная платформа, которая автоматизирует цепочку «афиша — бронирование — оплата — билет — вход».</p>
+        <p>Проведено тестирование, в том числе end-to-end сценарии Playwright, выполнено экономическое обоснование и раздел по охране труда программиста.</p>
+        <p>Технически проект демонстрирует проектирование реляционной БД, REST API, современный SPA-интерфейс, интеграцию почты, PDF и QR, а также ИИ-помощника поддержки.</p>
+        <p><strong>На этом демонстрация завершена. Готов ответить на ваши вопросы. Спасибо за внимание!</strong></p>
+      </div>
+    </div>
+
+    <div class="prep">
+      <h2>Если спросят</h2>
+      <ul>
+        <li><strong>Почему PostgreSQL?</strong> — Надёжность, JSON-поля, бесплатность, хорошая связка с EF Core.</li>
+        <li><strong>Безопасность?</strong> — JWT, BCrypt, OTP, валидация e-mail, капча на формах, ротирующий QR.</li>
+        <li><strong>Оплата реальная?</strong> — Демо-сценарий; архитектура готова к подключению эквайринга.</li>
+        <li><strong>Чем лучше аналогов?</strong> — Единая схема зала с реальными площадками Минска, модерация, комиссия, передача билетов, ИИ-поддержка.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

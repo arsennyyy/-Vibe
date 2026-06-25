@@ -1,0 +1,35 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: vibe-site
+    runtime: docker
+    plan: free
+    region: frankfurt
+    healthCheckPath: /api/events
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: production
+      - key: SiteUrl
+        sync: false
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: Jwt__Key
+        generateValue: true
+      - key: Jwt__Issuer
+        value: vibe_site_api
+      - key: Jwt__Audience
+        value: vibe_site_client
+      - key: SmtpSettings__Enabled
+        value: "false"
+      - key: SmtpSettings__DispatchGuidesOnStartup
+        value: "false"
+      - key: Platform__SeedDemoEvents
+        value: "true"
+      - key: Ai__Provider
+        value: openai
+      - key: Ai__BaseUrl
+        value: https://api.groq.com/openai/v1
+      - key: Ai__ApiKey
+        sync: false
+      - key: Ai__Model
+        value: llama-3.1-8b-instant

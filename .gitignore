@@ -8,15 +8,29 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.env
+.env.local
+MyFront/.env
+MyFront/.env.local
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+# .NET
+MyMvcBackend/bin/
+MyMvcBackend/obj/
+**/bin/
+**/obj/
+
+# Uploads — в репозиторий заливаем (приватный repo)
+# backend/wwwroot/uploads/
+
+# DB dumps (не в git)
+*.dump
+*.sql.backup
+
+# IDE
+.vs/
 *.suo
 *.ntvs*
 *.njsproj

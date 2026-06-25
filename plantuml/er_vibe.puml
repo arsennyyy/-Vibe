@@ -1,0 +1,207 @@
+@startuml er_vibe
+' ER-диаграмма (IE / Crow's Foot) — БД +Vibe, PostgreSQL
+' PlantUML не рисует ромбы Chen; связи подписаны глаголом на линии.
+' Рендер: plantuml.com или Draw.io: Arrange → Insert → PlantUML
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam defaultFontName "Times New Roman"
+skinparam defaultFontSize 10
+skinparam linetype ortho
+skinparam roundcorner 0
+
+skinparam entity {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+}
+
+hide circle
+hide methods
+hide stereotypes
+
+' ========== СУЩНОСТИ ==========
+
+entity "users" as users {
+  * **id** <<PK>>
+  --
+  email
+  passwordhash
+  isadmin
+  isorganizer
+}
+
+entity "events" as events {
+  * **id** <<PK>>
+  --
+  title
+  date
+  status
+  organizerid <<FK>>
+  venueid <<FK>>
+  hallid <<FK>>
+}
+
+entity "venues" as venues {
+  * **id** <<PK>>
+  --
+  name
+  city
+  address
+}
+
+entity "halls" as halls {
+  * **id** <<PK>>
+  --
+  name
+  venueid <<FK>>
+}
+
+entity "halllayouts" as halllayouts {
+  * **id** <<PK>>
+  --
+  name
+  hallid <<FK>>
+}
+
+entity "halllayoutseats" as halllayoutseats {
+  * **id** <<PK>>
+  --
+  row
+  number
+  halllayoutid <<FK>>
+}
+
+entity "seats" as seats {
+  * **id** <<PK>>
+  --
+  row
+  number
+  status
+  eventid <<FK>>
+  price
+}
+
+entity "tickettypes" as tickettypes {
+  * **id** <<PK>>
+  --
+  name
+  price
+  eventid <<FK>>
+}
+
+entity "usertickets" as usertickets {
+  * **id** <<PK>>
+  --
+  userid <<FK>>
+  eventid <<FK>>
+  seatid <<FK>>
+  qrcode
+  price
+}
+
+entity "orders" as orders {
+  * **id** <<PK>>
+  --
+  userid <<FK>>
+  ordernumber
+  totalamount
+  status
+}
+
+entity "payments" as payments {
+  * **id** <<PK>>
+  --
+  orderid <<FK>>
+  userid <<FK>>
+  amount
+  status
+}
+
+entity "notifications" as notifications {
+  * **id** <<PK>>
+  --
+  userid <<FK>>
+  title
+  isread
+  relatedeventid <<FK>>
+}
+
+entity "reviews" as reviews {
+  * **id** <<PK>>
+  --
+  userid <<FK>>
+  eventid <<FK>>
+  rating
+  comment
+}
+
+entity "faqcategories" as faqcategories {
+  * **id** <<PK>>
+  --
+  title
+  sortorder
+}
+
+entity "faqitems" as faqitems {
+  * **id** <<PK>>
+  --
+  question
+  categoryid <<FK>>
+}
+
+entity "catalogfilters" as catalogfilters {
+  * **id** <<PK>>
+  --
+  kind
+  label
+  isactive
+}
+
+entity "contactmessages" as contactmessages {
+  * **id** <<PK>>
+  --
+  email
+  message
+  status
+}
+
+' ========== СВЯЗИ (1 — N) ==========
+
+users ||--o{ events : "организует"
+users ||--o{ usertickets : "приобретает"
+events ||--o{ usertickets : "имеет билеты"
+seats ||--o{ usertickets : "закрепляет"
+
+events ||--o{ seats : "содержит"
+events ||--o{ tickettypes : "содержит"
+
+events }o--|| venues : "проводится"
+venues ||--o{ halls : "имеет"
+halls ||--o{ halllayouts : "имеет"
+halllayouts ||--o{ halllayoutseats : "содержит"
+
+users ||--o{ orders : "оформляет"
+orders ||--o{ payments : "оплачивается"
+
+users ||--o{ notifications : "получает"
+events ||--o{ notifications : "связано"
+
+users ||--o{ reviews : "пишет"
+events ||--o{ reviews : "получает"
+
+faqcategories ||--o{ faqitems : "включает"
+
+' Автономные (без связей) — catalogfilters, contactmessages
+
+note right of catalogfilters
+  Автономный справочник
+  (без FK)
+end note
+
+note right of contactmessages
+  Автономная сущность
+  (без FK)
+end note
+
+@enduml

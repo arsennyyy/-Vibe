@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/.vs/
+**/.git/
+**/e2e/test-results/
+**/*.dump
+.env
+.env.*

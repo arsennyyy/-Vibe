@@ -37,7 +37,6 @@
 
 ## Скриншоты
 
-> Положи PNG в папку [`screenshots/`](./screenshots/) — имена файлов в [`screenshots/README.md`](./screenshots/README.md)
 
 <table>
 <tr>
@@ -94,37 +93,6 @@
 - [PostgreSQL 17](https://www.postgresql.org/download/windows/)
 - [Ollama](https://ollama.com/download) + `ollama pull llama3.2`
 
-### Запуск
-
-```powershell
-# Терминал 1 — API
-cd backend
-dotnet run
-# → http://localhost:5064
-
-# Терминал 2 — фронт
-cd front
-npm install
-npm run dev
-# → http://localhost:5173
-```
-
-Настройки: `backend/appsettings.json`  
-Очистка БД (оставить одного админа): `CLEAR_DATABASE_KEEP_ADMIN.sql`
-
----
-
-## Документация
-
-| Файл | Для кого |
-|------|----------|
-| [`docs/ZASHCHITA_SCENARIO.html`](./docs/ZASHCHITA_SCENARIO.html) | **Сценарий защиты** — что говорить и что открывать |
-| [`docs/DLYA_MENYA_GITHUB_I_DUMP.md`](./docs/DLYA_MENYA_GITHUB_I_DUMP.md) | Залить на GitHub + сделать дамп БД |
-| [`docs/DLYA_DRUGA.md`](./docs/DLYA_DRUGA.md) | Друг: clone, Ollama, запуск |
-| [`docs/DLYA_DRUGA_VOSSTANOVLENIE_BAZY.md`](./docs/DLYA_DRUGA_VOSSTANOVLENIE_BAZY.md) | Друг: pgAdmin, restore, пароли |
-| [`docs/DEPLOY_ONLINE.md`](./docs/DEPLOY_ONLINE.md) | Деплой на Render + Neon |
-
----
 
 ## Стек
 
@@ -135,10 +103,6 @@ npm run dev
 **БД:** PostgreSQL — пользователи, события, места, заказы, платежи, модерация, поддержка, FAQ
 
 ---
-
-## Лицензия
-
-Учебный дипломный проект. © 2024–2026
 
 <div align="center">
 <sub>Сделано с 💜 для живой музыки</sub>
